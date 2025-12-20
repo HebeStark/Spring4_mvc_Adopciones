@@ -7,6 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">           
+    @livewireStyles
     </head>
    <body class="bg-gray-100 text-gray-800 font-[Inter]">
       <nav class="bg-violet-700 text-white shadow">
@@ -20,13 +21,18 @@
         </div>
          </div>
        </nav>
-       <main class="max-w-6xl mx-auto px-6 py-8">
+    <main class="max-w-6xl mx-auto px-6 py-8">
+     @isset($slot)  
+         {{ $slot }}
+     @else
         @yield('content')
+    @endisset
     </main>
 
        <footer class="bg-gray-200 text-center text-sm text-gray-600 py-4">
             <p>&copy; 2025 Portal de Adopciones</p>
         </footer>
+        @livewireScripts
     </body>
 </html>
    
