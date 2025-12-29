@@ -28,11 +28,17 @@
                     {{ ucfirst($animal->estado) }}
                 </span>
 
+                <a href ="{{ route('animales.edit', $animal) }}"
+                   class="inline-block mt-4 bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
+                    Editar 
+                </a>
+
                 <div class="mt-4">
                     <a href="{{ route('animales.show', $animal) }}"
                        class="inline-block text-violet-700 font-semibold hover:underline">
                         Ver detalle →
                     </a>
+                    
                 </div>
             </div>
         </div>
