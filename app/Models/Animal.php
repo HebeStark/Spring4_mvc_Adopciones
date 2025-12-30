@@ -18,4 +18,12 @@ class Animal extends Model
         'estado',
     ];
  
+    public function solicitudesAdopcion()
+    {
+        return $this->hasMany(SolicitudAdopcion::class);
+    }
+    public function adopcion()
+    {
+        return $this->hasOne(Adopcion::class);
+    }
 }
