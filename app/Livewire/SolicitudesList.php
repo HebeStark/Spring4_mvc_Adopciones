@@ -10,16 +10,22 @@ class SolicitudesList extends Component
     public function aprobarSolicitud($id)
     {
         $solicitud = SolicitudAdopcion::findOrFail($id);
-            $solicitud->aprobar();
-            session()->flash('success', 'Solicitud aprobada correctamente.');
+          if ($solicitud->estado !== 'pendiente') {
+              return;
+          }
+          $solicitud->aprobar();
+          session()->flash('success', 'Solicitud aprobada correctamente.');
     }
     public function rechazarSolicitud($id)
     {
         $solicitud = SolicitudAdopcion::findOrFail($id);
-            $solicitud->rechazar();
-            session()->flash('success', 'Solicitud rechazada correctamente.');
+          if ($solicitud->estado !== 'pendiente') {
+              return;
+          }
+          $solicitud->rechazar();
+          $solicitud->save();
+          session()->flash('success', 'Solicitud rechazada correctamente.');
     }
-
     public function render()
     {
         return view('livewire.solicitudes-list', [
@@ -29,3 +35,4 @@ class SolicitudesList extends Component
         ]);
     }
 }
+   

@@ -19,3 +19,6 @@ Route::get('/solicitudes', SolicitudesList::class)->name('solicitudes.index');
 Route::get('/solicitudes/crear', function () {
     return view('solicitudes.create');
 })->name('solicitudes.create');
+Route::get('/solicitudes', function () {
+    return view('solicitudes.index');
+})->name('solicitudes.index');
