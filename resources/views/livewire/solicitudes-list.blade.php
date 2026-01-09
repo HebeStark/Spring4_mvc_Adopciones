@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <div>
     <div class="max-w-5xl mx-auto mt-6">
         <h1 class="text-3xl font-bold text-violet-700 mb-6">
@@ -64,3 +66,4 @@
     </div>
     
 </div>
+@endsection

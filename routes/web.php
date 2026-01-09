@@ -6,8 +6,7 @@ use App\Livewire\AnimalCreate;
 use App\Livewire\AnimalEdit;
 use App\Livewire\SolicitudesList;
 use App\Livewire\SolicitudCreate;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,13 +31,10 @@ Route::get('/solicitudes', SolicitudesList::class)
 Route::get('/solicitudes/crear', SolicitudCreate::class)
 ->name('sollicitudes.create')
 ->middleware('auth');
+Route::get('/solicitudes/crear', SolicitudCreate::class)
+->name('sollicitudes.create');
+Route::middleware('admin')->group(function () {
+    Route::get('/solicitudes', SolicitudesList::class)
+    ->name('sollicitudes.index');
+});
 
-//Ruta para prueba de login admin
-Route::get('/login-admin', function () {
-    $admin = User::where('role', 'admin')->first();
-    if(!$admin){
-        return'No existe usuario admin';
-    }
-    Auth::login($admin);
-    return redirect('/solicitudes');
-    });
