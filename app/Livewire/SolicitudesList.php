@@ -10,7 +10,9 @@ class SolicitudesList extends Component
 {
     public function aprobarSolicitud($id)
     {
-        if (!Auth::check() || !Auth::user()->isAdmin()) {
+        /**@var User|null $user */
+        $user = Auth::user();
+        if (!$user || !$user->isAdmin()) {
             abort(403, 'Acceso solo para administradores.');
         }
         $solicitud = SolicitudAdopcion::findOrFail($id);
@@ -20,7 +22,9 @@ class SolicitudesList extends Component
     }
        public function rechazarSolicitud($id)
     {
-        if (!Auth::check() || !Auth::user()->isAdmin()) {
+        /**@var User|null $user */
+        $user = Auth::user();
+        if (!$user || !$user->isAdmin()) {
             abort(403);
     }
         $solicitud = SolicitudAdopcion::findOrFail($id);
