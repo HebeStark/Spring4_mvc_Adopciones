@@ -27,9 +27,7 @@
                        $disponible = trim(strtolower($animal->estado)) === 'disponible';
                      @endphp
                      <span class="inline-block mt-3 px-3 py-1 text-sm rounded-full
-                    {{ $disponible
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-gray-300 text-gray-600' }}">
+                    {{ $disponible ? 'bg-green-100 text-green-700' : 'bg-gray-300 text-gray-600' }}">
                     {{ ucfirst($animal->estado) }}
                 </span>
                 @if($disponible)
