@@ -55,3 +55,10 @@ Route::get('/login-admin', function (){
     Auth::login($admin);
     return redirect('/animales');
 });*/
+
+/*ruta para cerrar sesion admin
+use Illuminate\Support\Facades\Auth;
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/animales');
+});*/
