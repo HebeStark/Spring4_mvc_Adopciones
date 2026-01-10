@@ -38,12 +38,12 @@ class SolicitudCreate extends Component
             ['nombre' => $this->nombre, 
             'telefono' => $this->telefono]
         );
-        $existe = SolicitudAdopcion::where('animal_id', $this->animal_id)
+        $exists = SolicitudAdopcion::where('animal_id', $this->animal_id)
         ->where('adoptante_id', $adoptante->id)
         ->whereIn('estado', ['pendiente', 'aprobada'])
-        ->existe();
+        ->exists();
 
-        if ($existe){
+        if ($exists){
             session()->flash('error', 'Ya has enviado una solicitud para este animal.');
             return;
         }        

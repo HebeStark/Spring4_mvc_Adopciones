@@ -46,3 +46,12 @@ Route::get('/login', function () {
 })->name('login');
 
 
+/*Ruta temporal para probar admin
+use Illuminate\Support\Facades\Auth;
+Use App\Models\User;
+
+Route::get('/login-admin', function (){
+    $admin = User::where('role','admin')->firstOrFail();
+    Auth::login($admin);
+    return redirect('/animales');
+});*/

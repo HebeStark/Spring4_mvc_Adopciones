@@ -17,6 +17,12 @@
             <div class="space-x-4">
                 <a href="/" class="hover:text-violet-200">Inicio</a>
                 <a href="/animales" class="hover:text-violet-200">Animales</a>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                    <a href="{{ route('dashboard') }}" class="hover:text-violet-200">Dashboard</a> 
+                    <a href="{{ route('solicitudes.index') }}" class="hover:text-violet-200">Solicitudes</a>
+                    @endif
+                @endauth
             </div>
         </div>
          </div>
