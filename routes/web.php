@@ -12,7 +12,7 @@ use App\Livewire\Dashboard;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::get('/animales', [AnimalController::class, 'index'])->name('animales.index');
 
@@ -28,16 +28,18 @@ Route::get('/animales/{animal}/edit', AnimalEdit::class)
 
 //
 Route::get('/solicitudes/crear', SolicitudCreate::class)
-->name('sollicitudes.create');
+->name('solicitudes.create');
+
 //
-Route::middleware('admin')->group(function () {
-    Route::get('/solicitudes', SolicitudesList::class)
-    ->name('sollicitudes.index');
+
+Route::get('/solicitudes', SolicitudesList::class)
+->name('solicitudes.index')
+->middleware(['auth','admin']);
 
     Route::get('/dashboard', Dashboard::class)
 ->name('dashboard');
 
-});
+
 
 Route::get('/login', function () {
     return 'Página pendiente';

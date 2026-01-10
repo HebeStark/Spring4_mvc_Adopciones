@@ -18,16 +18,29 @@
                    <h2 class="text-xl font-semibold text-gray-800">
                         {{ $animal->nombre}}
                    </h2>
+                       
                    <p class="text-gray-500 mt-1">
                          ({{ $animal->tipo }} . {{ $animal->edad }} años)
                    </p>
+
+                     @php
+                       $disponible = trim(strtolower($animal->estado)) === 'disponible';
+                     @endphp
                      <span class="inline-block mt-3 px-3 py-1 text-sm rounded-full
-                    {{ $animal->estado === 'disponible'
+                    {{ $disponible
                         ? 'bg-green-100 text-green-700'
                         : 'bg-gray-300 text-gray-600' }}">
                     {{ ucfirst($animal->estado) }}
                 </span>
-
+                @if($disponible)
+                <a href="{{ route('solicitudes.create') }}"
+                   class="inline-block mt-3 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                  Adoptar
+                </a>
+                @else
+                <span class="block mt-3 text-gray-400 text-sm">Ya adoptado</span>
+                @endif
+                
                 <a href ="{{ route('animales.edit', $animal) }}"
                    class="inline-block mt-4 bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
                     Editar 
