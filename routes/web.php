@@ -7,8 +7,8 @@ use App\Livewire\AnimalEdit;
 use App\Livewire\SolicitudesList;
 use App\Livewire\SolicitudCreate;
 use App\Livewire\Dashboard;
-
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
@@ -47,19 +47,30 @@ Route::get('/login', function () {
 })->name('login');
 
 
-/*Ruta temporal para probar admin
-use Illuminate\Support\Facades\Auth;
-Use App\Models\User;
+Route::get('/login', function (){
+    return view('auth.login');
+})->name('login');
 
-Route::get('/login-admin', function (){
-    $admin = User::where('role','admin')->firstOrFail();
-    Auth::login($admin);
-    return redirect('/animales');
-});*/
+Route::post('/login', function (Request $request){
+    $credentials = $request->only('email','password');
+    
+    if(Auth::attempt($credentials)){
 
-/*ruta para cerrar sesion admin
-use Illuminate\Support\Facades\Auth;
-Route::get('/logout', function () {
+        /**@var \App\Models\User $user */
+        $user = Auth::user();
+
+        if($user && $user->isAdmin()) {
+            return redirect()->route('dashboard');
+        }
+        
+        Auth::logout();
+        return back()->withErrors(['email'=> 'Acceso solo administradores.']);
+    }
+    return back()->withErrors(['email'=> 'Credenciales incorrectas.']);
+})->name('login.post');
+
+Route::post('/logout', function(){
     Auth::logout();
-    return redirect('/animales');
-});*/
+    return redirect('/');
+})->name('logout');
+

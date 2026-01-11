@@ -13,25 +13,43 @@
       <nav class="bg-violet-700 text-white shadow">
          <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
              <span class="text-xl font-bold">Adopciones</span>
+
+             @php
+             $navBase = 'px-4 py-2 rounded-lg transition';
+             $navActive = 'bg-white text-violet-700 font-semibold shadow';
+             $navInactive = 'text-white hover:bg-violet-600';
+             @endphp
+
         <div class="space-x-4">
-            <div class="space-x-4">
-                    <a href="{{ route('home') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('home') 
-                    ? 'bg-white text-violet-700 font-semibold shadow'
-                     : 'text-white hover:bg-violet-600' }}">Inicio</a>
 
-                    <a href="{{ route('animales.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('animales.*') 
-                    ? 'bg-white text-violet-700 font-semibold shadow'
-                    : 'text-white hover:bg-violet-600' }}">Animales</a>
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') 
+                ? $navActive : $navInactive }}">Inicio</a>
 
-                @auth
-                
-                    @if(auth()->user()->isAdmin())
-                    <a href="{{ route('dashboard') }}" class="hover:text-violet-200">Dashboard</a> 
-                    <a href="{{ route('solicitudes.index') }}" class="hover:text-violet-200">Solicitudes</a>
-                    @endif
+                <a href="{{ route('animales.index') }}" class="{{ $navBase }} {{ request()->routeIs('animales.*') ?
+                $navActive : $navInactive }}">Animales</a>
+
+               @guest
+                <a href="{{ route('login')}}" class="{{ $navBase }} {{ request()->routeIs('login') ?
+                $navActive : $navInactive }}">Login</a>
+              @endguest
+
+      @auth
+            @if(auth()->user()->isAdmin())
+                <a href="{{ route('dashboard') }}" class="{{ $navBase }} {{ request()->routeIs('dashboard') ?
+                    $navActive : $navInactive }}">Dashboard</a>
+                    
+                <a href="{{ route('solicitudes.index') }}" class="{{ $navBase }} {{ request()->routeIs('solocitudes.*') ?
+                    $navActive : $navInactive }}">Solicitudes</a>
+            @endif
+      
+        <form method="POST" action="{{ route('logout')}}" class="inline">
+            @csrf
+            <button type="submit" class="{{ $navBase}} {{ $navInactive}}">Logout</button>
+        
+        </form>    
                 @endauth
             </div>
-        </div>
+       
          </div>
        </nav>
     <main class="max-w-6xl mx-auto px-6 py-8">
@@ -43,7 +61,7 @@
     </main>
 
        <footer class="bg-gray-200 text-center text-sm text-gray-600 py-4">
-            <p>&copy; 2025 Portal de Adopciones</p>
+            <p>&copy; 2026 Portal de Adopciones</p>
         </footer>
         @livewireScripts
     </body>
