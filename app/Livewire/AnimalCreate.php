@@ -13,6 +13,7 @@ class AnimalCreate extends Component
     public string $tipo = '';
     public int $edad = 0;
     public string $estado = 'disponible';
+    public string $foto = '';
 
     protected function rules()
     {        
@@ -21,6 +22,7 @@ class AnimalCreate extends Component
             'tipo' => 'required|in:perro,gato',
             'edad' => 'required|integer|min:0|max:30',
             'estado' => 'required|in:disponible,adoptado',
+            'foto' => 'nullable|url',
             ];
     }
     
@@ -33,6 +35,7 @@ class AnimalCreate extends Component
             'tipo' => $this->tipo,
             'edad' => $this->edad,
             'estado' => $this->estado,
+            'foto' => $this->foto,
         ]);
 
         session()->flash('success', 'Animal creado exitosamente.');

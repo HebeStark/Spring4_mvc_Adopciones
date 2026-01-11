@@ -17,6 +17,22 @@
         </select>
         @error('tipo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
+
+        @if($animal->foto)
+        <img src="{{ $animal->foto }}"
+        class="w-full h-40 object-cover rounded-xl mb-4">
+        @else
+        <img src="https://via.placeholder.com/400x250"
+        class="w-full h-40 object-cover rounded-xl mb-4">
+        @endif
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Foto(URL)</label>
+            <input type="text" wire:model.defender="foto" placeholder="" class="mt-1 w-full rounded-lg border-gray-300">
+            @error('foto')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
     <div>
         <label class="block text-sm font-medium text-gray-700">Edad</label>
         <input type="number" wire:model.defer="edad" class="mt-1 w-full border border-gray-300 focus:border-violet-500 focus:ring-violet-500">

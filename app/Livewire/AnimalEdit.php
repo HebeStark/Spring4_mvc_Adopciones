@@ -18,6 +18,7 @@ class AnimalEdit extends Component
     public string $tipo = '';
     public int $edad = 0;
     public string $estado = 'disponible';
+    public ?string $foto = null;
 
     public function mount(Animal $animal)
     {
@@ -26,6 +27,7 @@ class AnimalEdit extends Component
         $this->tipo = $animal->tipo;
         $this->edad = $animal->edad;
         $this->estado = $animal->estado;
+        $this->foto = $animal->foto;
     }
 
     protected  function rules(): array
@@ -35,6 +37,7 @@ class AnimalEdit extends Component
             'tipo' => 'required|in:perro,gato',
             'edad' => 'required|integer|min:0',
             'estado' => 'required|in:disponible,adoptado',
+            'foto' => 'nullable|url',
         ];
     }
 
@@ -46,6 +49,7 @@ class AnimalEdit extends Component
             'tipo' => $this->tipo,
             'edad' => $this->edad,
             'estado' => $this->estado,
+            'foto' => $this->foto,
         ]);       
 
         session()->flash('success', 'Animal actualizado correctamente.');

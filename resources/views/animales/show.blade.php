@@ -3,7 +3,10 @@
 <a href="/animales" class="text-violet-600 hover:underline mb-6 inline-block">
     ← Volver al listado
 </a>
-<div class="bg-white rounded-xl shadow p-8 max-w-xl">
+<img src="{{ $animal->foto ?: 'https://via.placeholder.com/600x400' }}"
+class="w-full max-w-sm mx-auto rounded-xl mb-6 object-cover">
+
+<div class="bg-white  mx-auto rounded-xl shadow p-8 max-w-xl">
     <h1 class="text-3xl font-bold text-violet-700 mb-4">
         {{ $animal->nombre }}
     </h1>

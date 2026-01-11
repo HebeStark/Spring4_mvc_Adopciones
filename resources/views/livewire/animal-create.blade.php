@@ -5,6 +5,12 @@
     </h1>
     <form wire:submit.prevent="save" class="space-y-4">
         <div>
+            <label class="block text-sm font-medium text-gray-700">Foto(URL)</label>
+            <input type="text" wire:model.defender="foto" placeholder="http://..." class="mt-1 w-full rounded.lg border-gray-300">
+            @error('foto')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+        </div>
+        <div>
             <label class="block text-sm font-medium text-gray-700">Nombre</label>
             <input
                 type="text"
@@ -13,7 +19,6 @@
             >
             @error('nombre') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
-
             <div>
                 <label class="block text-sm font-medium text-gray-700">Tipo</label>
                 <select

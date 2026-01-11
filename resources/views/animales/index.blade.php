@@ -14,11 +14,16 @@
         </a>
         @endif
     @endauth
-        </div>
+        </div>        
+
        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   @foreach($animales as $animal)              
                    <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
-                      <div class="p-5">
+                   
+                   <img src="{{ $animal->foto ?: 'https://via.placeholder.com/400x250' }}"
+                          class="w-full h-40 object-cover rounded-t-xl">
+                     
+             <div class="p-5">
                    <h2 class="text-xl font-semibold text-gray-800">
                         {{ $animal->nombre}}
                    </h2>

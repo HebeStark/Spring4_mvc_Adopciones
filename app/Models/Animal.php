@@ -16,6 +16,7 @@ class Animal extends Model
         'tipo',
         'edad',
         'estado',
+        'foto',
     ];
  
 }
