@@ -13,7 +13,8 @@ use App\Livewire\Dashboard;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
 Route::get('/animales', [AnimalController::class, 'index'])->name('animales.index');
 
 Route::get('/animales/create', AnimalCreate::class)->name('animales.create');

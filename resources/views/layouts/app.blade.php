@@ -15,9 +15,16 @@
              <span class="text-xl font-bold">Adopciones</span>
         <div class="space-x-4">
             <div class="space-x-4">
-                <a href="/" class="hover:text-violet-200">Inicio</a>
-                <a href="/animales" class="hover:text-violet-200">Animales</a>
+                    <a href="{{ route('home') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('home') 
+                    ? 'bg-white text-violet-700 font-semibold shadow'
+                     : 'text-white hover:bg-violet-600' }}">Inicio</a>
+
+                    <a href="{{ route('animales.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('animales.*') 
+                    ? 'bg-white text-violet-700 font-semibold shadow'
+                    : 'text-white hover:bg-violet-600' }}">Animales</a>
+
                 @auth
+                
                     @if(auth()->user()->isAdmin())
                     <a href="{{ route('dashboard') }}" class="hover:text-violet-200">Dashboard</a> 
                     <a href="{{ route('solicitudes.index') }}" class="hover:text-violet-200">Solicitudes</a>

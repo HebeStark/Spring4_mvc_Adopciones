@@ -4,12 +4,16 @@
     
         <div class="flex justify-between items-center mb-6">
     <h1 class="text-3xl font-bold text-violet-700">
-        🐶 Lista de Animales
+         Lista de Animales
     </h1>
-    <a href="{{ route('animales.create') }}"
-       class="bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
-        + Nuevo Animal
-    </a>
+    @auth
+        @if(auth()->user()->isAdmin())
+        <a href="{{ route('animales.create') }}"
+        class="bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
+            + Nuevo Animal
+        </a>
+        @endif
+    @endauth
         </div>
        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   @foreach($animales as $animal)              
