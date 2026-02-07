@@ -14,26 +14,27 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::resource('animales', AnimalController::class);
+Route::resource('animales', AnimalController::class)
+->parameters(['animales' => 'animal']);
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('animales', AnimalController::class)->except([
+        'index', 'show']);
+});
 
 //
-Route::get('/solicitudes/crear', SolicitudCreate::class)
-->name('solicitudes.create');
+ Route::get('/solicitudes/crear', SolicitudCreate::class)
+    ->name('solicitudes.create');
+
 
 //
-
-Route::get('/solicitudes', SolicitudesList::class)
-->name('solicitudes.index')
-->middleware(['auth','admin']);
+Route::middleware(['auth', 'admin'])->group( function () {
+    Route::get('/solicitudes', SolicitudesList::class)
+            ->name('solicitudes.index');
 
     Route::get('/dashboard', Dashboard::class)
-->name('dashboard');
-
-
-
-Route::get('/login', function () {
-    return 'Página pendiente';
-})->name('login');
+            ->name('dashboard');
+});
 
 
 Route::get('/login', function (){
@@ -55,11 +56,12 @@ Route::post('/login', function (Request $request){
         Auth::logout();
         return back()->withErrors(['email'=> 'Acceso solo administradores.']);
     }
+
     return back()->withErrors(['email'=> 'Credenciales incorrectas.']);
-})->name('login.post');
+    })->name('login.post');
 
 Route::post('/logout', function(){
     Auth::logout();
-    return redirect('/');
-})->name('logout');
+    return redirect()->route('home');
+    })->name('logout');
 
