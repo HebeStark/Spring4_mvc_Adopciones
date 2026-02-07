@@ -3,63 +3,99 @@
 namespace App\Http\Controllers;
 use App\Models\Animal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AnimalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
-        $animales = Animal::all();
+        $animales = Animal::latest()->paginate(10);
         return view('animales.index', compact('animales'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
     public function create()
     {
-        //
+        return view ('animales.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        $datosValidados = $request->validate([
+            'nombre' => 'required|string|min:2|max:100',
+            'tipo' => 'required|in:perro,gato',
+            'edad' => 'required|integer|min:0|max:30',
+            'foto' => 'nullable|url',
+        ]);
+
+        try{
+            animal::create($datosValidados);
+
+            return redirect()
+            ->route('animales.index')
+            ->whith('success', 'Animal creado correctamente.');
+         } catch (\Exception $e) {
+            Log::error('Errot al crear animal', ['error' => $e->getMessage()]);
+
+            return back()
+            ->whithInput()
+            ->whith('error', 'No se pudo crear el animal.');
+
+         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Animal $animal)
     {
         return view('animales.show', compact('animal'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+   
+    public function edit(Animal $animal)
     {
-        //
+        return view('animales.edit', compact('animal'));
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Animal $animal)
     {
-        //
+       $datosValidados = $request -> validate([
+        'nombre' => 'required|string|min:2|max:100',
+        'tipo' => 'required|in:perro,gato',
+        'edad' => 'required|integer|min:0|max:30',
+        'estado' => 'required|in:disponible,adoptado',
+        'foto' => 'nullable|url',  
+       ]);
+       try{
+          $animal->update($datosValidados);
+
+          return redirect()
+          ->route('animales.index')
+          ->with('seccess', 'Animal actualizado correctamente.');
+       } catch (\Exception $e) {
+        Log::error('Error al actualizar animal', ['error' => $e->getMessage()]);
+
+        return back()
+        ->withInput()
+        ->with('error', 'No se pudo actualizar el animal');
+       }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Animal $animal)
     {
-        //
+        try {
+            $animal->delete();
+
+            return redirect()
+            ->route('animales.index')
+            ->with('success', 'Animal eliminado correctamente');
+        } catch (\Exception $e) {
+            Log::error('Error al eliminar animal', ['error' => $e->getMessage()]);
+
+            return redirect()
+            ->route('animales,index')
+            ->with('error', 'No se pudo eliminar el animal');
+        }
     }
 }

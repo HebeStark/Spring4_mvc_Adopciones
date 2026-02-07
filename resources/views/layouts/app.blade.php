@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>Portal de Adopciones</title> 
-         @vite('resources/css/app.css')
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">           
-    @livewireStyles
+   
     </head>
    <body class="bg-gray-100 text-gray-800 font-[Inter]">
       <nav class="bg-violet-700 text-white shadow">
@@ -63,7 +63,7 @@
        <footer class="bg-gray-200 text-center text-sm text-gray-600 py-4">
             <p>&copy; 2026 Portal de Adopciones</p>
         </footer>
-        @livewireScripts
+       
     </body>
 </html>
    
