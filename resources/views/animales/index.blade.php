@@ -2,67 +2,65 @@
 
 @section('content')
     
-        <div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-violet-700">
+        <div class="animal-header">
+    <h1 class="animals-title">
          Lista de Animales
     </h1>
     @auth
         @if(auth()->user()->isAdmin())
         <a href="{{ route('animales.create') }}"
-        class="bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
+        class="btn btn-primary">
             + Nuevo Animal
         </a>
         @endif
     @endauth
         </div>        
 
-       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+       <div class="animals-grid">
                   @foreach($animales as $animal)              
-                   <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
+                   <div class="animal-card">
                    
                    <img src="{{ $animal->foto ?: 'https://via.placeholder.com/400x250' }}"
-                          class="w-full h-40 object-cover rounded-t-xl">
+                          class="animal-image">
                      
-             <div class="p-5">
-                   <h2 class="text-xl font-semibold text-gray-800">
+             <div class="animal-body">
+                   <h2 class="animal-name">
                         {{ $animal->nombre}}
                    </h2>
                        
-                   <p class="text-gray-500 mt-1">
+                   <p class="animal-meta">
                          ({{ $animal->tipo }} . {{ $animal->edad }} años)
                    </p>
 
                      @php
                        $disponible = trim(strtolower($animal->estado)) === 'disponible';
                      @endphp
-                     <span class="inline-block mt-3 px-3 py-1 text-sm rounded-full
-                    {{ $disponible ? 'bg-green-100 text-green-700' : 'bg-gray-300 text-gray-600' }}">
+                     <span class="animal-status {{ $disponible ? 'bg-green-100 text-green-700' : 'bg-gray-300 text-gray-600' }}">
                     {{ ucfirst($animal->estado) }}
                 </span>
                 @if($disponible)
                 <a href="{{ route('solicitudes.create') }}"
-                   class="inline-block mt-3 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                   class="btn btn-success">
                   Adoptar
                 </a>
                 @else
-                <span class="block mt-3 text-gray-400 text-sm">Ya adoptado</span>
+                <span class="animal-disabled">Ya adoptado</span>
                 @endif
                 
                 @auth
                     @if(auth()->user()->isAdmin())                    
                     <a href ="{{ route('animales.edit', $animal) }}"
-                    class="inline-block mt-4 bg-violet-700 text-white px-4 py-2 rounded-lg hover:bg-violet-800 transition">
+                    class="btn btn-primary">
                         Editar 
                     </a>
                     @endif
                 @endauth
 
-                <div class="mt-4">
+                <div class="animal-detail">
                     <a href="{{ route('animales.show', $animal) }}"
-                       class="inline-block text-violet-700 font-semibold hover:underline">
+                       class="animal-link">
                         Ver detalle →
-                    </a>
-                    
+                    </a>                    
                 </div>
             </div>
         </div>
