@@ -407,7 +407,50 @@ button:hover, a:hover {
 .full-width {
     width: 100%;
 }
+.solicitud-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
+.form-actions {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.btn-primary {
+    background-color: #6d28d9;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #5b21b6;
+}
+
+.error-message {
+    color: #d11a2a;
+    font-size: 14px;
+}
+.flash-success {
+    background-color: #e6f7ed;
+    color: #1e7e34;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.flash-error {
+    background-color: #fdecea;
+    color: #b02a37;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
 
 
 

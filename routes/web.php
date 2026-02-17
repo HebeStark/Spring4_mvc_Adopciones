@@ -7,6 +7,7 @@ use App\Livewire\SolicitudCreate;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Animal;
 
 
 Route::get('/', function () {
@@ -23,6 +24,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 //
+Route::get('/animales/{animal}/solicitar', function (Animal $animal) {
+    return view('solicitudes.create', compact('animal'));
+})->name('solicitudes.create');
+
  Route::get('/solicitudes/crear', SolicitudCreate::class)
     ->name('solicitudes.create');
 

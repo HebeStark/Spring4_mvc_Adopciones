@@ -10,23 +10,20 @@ use App\Models\Adoptante;
 
 class SolicitudCreate extends Component
 {
-
-    public $animal_id;
+    public $animal;
     public $nombre;
     public $email;
-    public $telefono;
-    public $animales;
+    public $telefono;   
 
     protected $rules = [
-        'animal_id' => 'required|exists:animales,id',
         'nombre' => 'required|string|max:255',
         'email' => 'required|email|max:255',
-        'telefono' => 'nullable|string|max:20',
+        'telefono' => 'required|string|max:20',
     ];
 
-    public function mount()
+    public function mount(Animal $animal)
     {
-        $this->animales = Animal::where('estado','disponible')->get();
+        $this->animal = $animal;
     }
 
     public function save()
@@ -38,25 +35,27 @@ class SolicitudCreate extends Component
             ['nombre' => $this->nombre, 
             'telefono' => $this->telefono]
         );
-        $exists = SolicitudAdopcion::where('animal_id', $this->animal_id)
+        $exists = SolicitudAdopcion::where('animal_id', $this-> animal->id)
         ->where('adoptante_id', $adoptante->id)
         ->whereIn('estado', ['pendiente', 'aprobada'])
         ->exists();
 
         if ($exists){
-            session()->flash('error', 'Ya has enviado una solicitud para este animal.');
-            return;
+            return redirect()
+            ->route('animales.index')
+            ->with('error', 'Ya has enviado una solicitud para este animal.');
+           
         }        
 
         SolicitudAdopcion::create([
-            'animal_id' => $this->animal_id,
+            'animal_id' => $this->animal->id,
             'adoptante_id' => $adoptante->id,
             'estado' => 'pendiente',
         ]);
 
-        session()->flash('success', 'Solicitud de adopción enviada correctamente.');
-
-        $this->reset(['animal_id', 'nombre', 'email', 'telefono']);
+        return redirect()
+        ->route('animales.index')
+        ->with('success', 'Solicitud de adopción enviada correctamente.');
 
     }
     public function render()

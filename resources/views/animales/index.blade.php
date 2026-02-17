@@ -38,13 +38,11 @@
                      <span class="animal-status {{ $disponible ? 'bg-green-100 text-green-700' : 'bg-gray-300 text-gray-600' }}">
                     {{ ucfirst($animal->estado) }}
                 </span>
-                @if($disponible)
-                <a href="{{ route('solicitudes.create') }}"
-                   class="btn btn-success">
+                @if($animal->estado === 'disponible')
+                <a href="{{ route('solicitudes.create', $animal) }}"
+                   class="btn-primary">
                   Adoptar
                 </a>
-                @else
-                <span class="animal-disabled">Ya adoptado</span>
                 @endif
                 
                 @auth
