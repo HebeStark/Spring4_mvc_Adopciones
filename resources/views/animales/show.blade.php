@@ -3,7 +3,9 @@
 <a href="{{ route ('animales.index') }}"  class="back-link">
     ← Volver al listado
 </a>
-<img src="{{ $animal->foto ?: 'https://via.placeholder.com/600x400' }}"
+<img src="{{ asset($animal->foto) }}" 
+     alt="{{ $animal->nombre }}" 
+     style="width:180px; border-radius:12px;"
 class="animal-show-image">
 
 <div class="animal-show-card">

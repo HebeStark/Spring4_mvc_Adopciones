@@ -25,7 +25,7 @@
                     @forelse($solicitudes as $solicitud)
                         <tr>
                             <td class="px-4 py-3">{{ $solicitud->animal->nombre }}</td>
-                            <td class="px-4 py-3">{{ $solicitud->adoptante->name }}</td>
+                            <td class="px-4 py-3">{{ $solicitud->adoptante->nombre }}</td>
                             <td class="px-4 py-3">
                                 <span class="px-2 py-1 rounded text-sm
                                 @if($solicitud->estado === 'pendiente') bg-yellow-100 text-yellow-700

@@ -13,12 +13,30 @@ class AnimalFactory extends Factory
 
     public function definition(): array
     {
+         $imagenes = [
+        'images/animales/luna.jpg',
+        'images/animales/max.jpg',
+        'images/animales/nala.jpg',
+        'images/animales/rocky.jpg',
+        'images/animales/milo.jpg',
+        'images/animales/bella.jpg',
+    ];
         return [
-            'nombre' => $this->faker->firstName(),
-            'tipo' => $this->faker->randomElement(['perro', 'gato', 'Bird']),
-            'edad' => $this->faker->numberBetween(1, 15),
-            'estado' => 'disponible',
-        ];
+        'nombre' => $this->faker->firstName(),
+        'tipo' => $this->faker->randomElement(['perro', 'gato']),
+        'edad' => $this->faker->numberBetween(1, 15),
+        'estado' => 'disponible',
+        'foto' => $this->faker->randomElement($imagenes),
+    ];
+    
+    }
+
+    public function cachorro(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'edad' => $this->faker->numberBetween(1, 2), 
+        ]);         
+   
     }
 
             
