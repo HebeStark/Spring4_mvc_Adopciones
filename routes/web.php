@@ -16,33 +16,27 @@ Route::get('/', function () {
 
 
 Route::resource('animales', AnimalController::class)
+->only(['index', 'show'])
 ->parameters(['animales' => 'animal']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('animales', AnimalController::class)->except([
-        'index', 'show']);
+    Route::resource('animales', AnimalController::class)
+    ->except(['index', 'show'])
+    ->parameters(['animales' => 'animal']);
+
+     Route::get('/solicitudes', SolicitudesList::class)
+            ->name('solicitudes.index');
+
+     Route::get('/dashboard', Dashboard::class)
+            ->name('dashboard');
+
 });
 
 //
-Route::get('/animales/{animal}/solicitar', function (Animal $animal) {
-    return view('solicitudes.create', compact('animal'));
-})->name('solicitudes.create');
-
  Route::get('/solicitudes/crear', SolicitudCreate::class)
     ->name('solicitudes.create');
 
-
-//
-Route::middleware(['auth', 'admin'])->group( function () {
-    Route::get('/solicitudes', SolicitudesList::class)
-            ->name('solicitudes.index');
-
-    Route::get('/dashboard', Dashboard::class)
-            ->name('dashboard');
-});
-
-
-Route::get('/login', function (){
+Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
