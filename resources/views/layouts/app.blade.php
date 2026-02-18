@@ -14,7 +14,11 @@
          <div class="navbar-container">
              <span class="navbar-brand">Adopciones</span>
 
-             <div class="navbar-links">
+             <button class="nav-toggle" onclick="toggleMenu()">
+
+             </button>
+
+             <div class="navbar-links" id="navbarLinks"> 
 
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link active' : 'nav-link' }}">
                 Inicio
@@ -80,5 +84,12 @@
     <p>&copy; 2026 Portal de Adopciones</p>
 </footer>
 
+    <script>
+        function toggleMenu() {
+            document.getElementById("navbarLinks").classList.toggle("active");
+        }
+    </script>
+
    </body>
+   
 </html>

@@ -27,7 +27,8 @@ class AnimalController extends Controller
             'nombre' => 'required|string|min:2|max:100',
             'tipo' => 'required|in:perro,gato',
             'edad' => 'required|integer|min:0|max:30',
-            'foto' => 'nullable|url',
+            'estado' => 'required|in:disponible,adoptado',
+            'foto' => 'nullable|string|max:255',
         ]);
 
         try{
@@ -35,13 +36,13 @@ class AnimalController extends Controller
 
             return redirect()
             ->route('animales.index')
-            ->whith('success', 'Animal creado correctamente.');
+            ->with('success', 'Animal creado correctamente.');
          } catch (\Exception $e) {
             Log::error('Errot al crear animal', ['error' => $e->getMessage()]);
 
             return back()
-            ->whithInput()
-            ->whith('error', 'No se pudo crear el animal.');
+            ->withInput()
+            ->with('error', 'No se pudo crear el animal.');
 
          }
     }
@@ -65,7 +66,7 @@ class AnimalController extends Controller
         'tipo' => 'required|in:perro,gato',
         'edad' => 'required|integer|min:0|max:30',
         'estado' => 'required|in:disponible,adoptado',
-        'foto' => 'nullable|url',  
+        'foto' => 'nullable|string|max:255',  
        ]);
        try{
           $animal->update($datosValidados);

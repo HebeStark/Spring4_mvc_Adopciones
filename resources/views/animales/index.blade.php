@@ -40,7 +40,7 @@
                 </span>
                 @if($animal->estado === 'disponible')
                 <a href="{{ route('solicitudes.create', $animal) }}"
-                   class="btn-primary">
+                   class=" btn btn-primary">
                   Adoptar
                 </a>
                 @endif

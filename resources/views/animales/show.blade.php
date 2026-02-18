@@ -27,7 +27,7 @@ class="animal-show-image">
 </div>
 
 @if ($animal->estado === 'disponible')
-   <a href="{{ route('solicitudes.create', $animal) }}" class="btn-primary">
+   <a href="{{ route('solicitudes.create', $animal) }}" class="btn btn-primary">
         Adoptar
     </a>
         

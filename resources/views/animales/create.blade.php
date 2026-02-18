@@ -1,4 +1,4 @@
-@extends('layouts.php')
+@extends('layouts.app')
 
 @section('content')
 <div class="form-card">
@@ -6,7 +6,7 @@
         Crear nuevo animal
     </h1>
     
-    @if (errors->any())
+    @if ($errors->any())
         <div class="form-errors">
             <ul>
                  @foreach ($errors->all() as $error )

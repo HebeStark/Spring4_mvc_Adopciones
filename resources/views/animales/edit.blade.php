@@ -8,41 +8,48 @@
     </h1>
 
     @if ($errors->any())
+
     <div class="form-errors">
         <ul>
             @foreach ($errors->all() as $error)
-            <li> {{ $error }} </li>                
+            <li> {{ $error }} </li>   
+
             @endforeach
         </ul>
-    </div>        
+    </div>      
+
     @endif
+
       <form action="{{ route('animales.update', $animal) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" name="nombre"
-                   value="{{ old('nombre', $animal->nombre) }}">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre"
+                   value="{{ old('nombre', $animal->nombre) }}" required>
         </div>
 
         <div class="form-group">
-            <label>Tipo</label>
-            <select name="tipo">
+            <label for="tipo">Tipo</label>
+            <select name="tipo" id="tipo" required>
                 <option value="">Seleccionar</option>
-                <option value="perro" @selected(old('tipo', $animal->tipo) === 'perro')>Perro</option>
-                <option value="gato" @selected(old('tipo', $animal->tipo) === 'gato')>Gato</option>
+                <option value="perro" @selected(old('tipo', $animal->tipo) === 'perro')>
+                    Perro</option>
+                <option value="gato" @selected(old('tipo', $animal->tipo) === 'gato')>
+                    Gato</option>
             </select>
         </div>
+
          <div class="form-group">
-            <label>Edad</label>
-            <input type="number" name="edad"
-                   value="{{ old('edad', $animal->edad) }}">
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" name="edad" min="0"
+                   value="{{ old('edad', $animal->edad) }}" required>
         </div>
 
         <div class="form-group">
-            <label>Estado</label>
-            <select name="estado">
+            <label for="estado">Estado</label>
+            <select name="estado" id="estado" required>
                 <option value="disponible" @selected(old('estado', $animal->estado) === 'disponible')>
                     Disponible
                 </option>
@@ -51,9 +58,10 @@
                 </option>
             </select>
         </div>
+
           <div class="form-group">
-            <label>Foto (URL)</label>
-            <input type="text" name="foto"
+            <label>Foto</label>
+            <input type="text" id="foto" name="foto"
                    value="{{ old('foto', $animal->foto) }}">
         </div>
 

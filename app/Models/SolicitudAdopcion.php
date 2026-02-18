@@ -28,6 +28,10 @@ class SolicitudAdopcion extends Model
     public function aprobar()
     {
         $this->update(['estado' => 'aprobada']);
+
+        if ($this->animal) {
+            $this->animal->update(['estado' => 'adoptado']);
+        }
     }
 
     public function rechazar()
