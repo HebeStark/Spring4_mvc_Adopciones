@@ -1,30 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="auth-card">
-    <h1 class="auth-title">Login Administrador</h1>
 
-    @if($errors->any())
-        <div class="auth-errors">{{ $errors->first() }}
-        </div>
-    @endif
-    
-    <form method="POST" action="{{ route('login.post') }}">
-    @csrf
+<div class="min-h-[60vh] flex items-center justify-center">
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required>
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+
+        <h1 class="text-2xl font-bold text-violet-700 mb-8 text-center">
+            Login Administrador
+        </h1>
+
+        @if($errors->any())
+            <div class="mb-6 p-4 rounded-lg bg-red-100 text-red-700 border border-red-200 text-sm">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.post') }}" class="space-y-6">
+            @csrf
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                </label>
+                <input type="email"
+                       name="email"
+                       required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                              focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Password
+                </label>
+                <input type="password"
+                       name="password"
+                       required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                              focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500">
+            </div>
+
+            <button type="submit"
+                    class="w-full px-4 py-2 bg-violet-700 text-white rounded-lg shadow-md
+                           hover:bg-violet-800 transition">
+                Entrar
+            </button>
+
+        </form>
+
     </div>
 
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary full-width">
-        Entrar
-    </button>
-    </form>
 </div>
+
 @endsection
